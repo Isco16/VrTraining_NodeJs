@@ -5,7 +5,6 @@ const {
     addUser,
     updateUser,
     deleteUser,
-    login,
 } = require('../controllers/users.controller');
 const { requireAuth } = require('../middlewares/authMiddleware.js');
 
@@ -20,8 +19,6 @@ usersRoute.post('/', addUser);
 usersRoute.put('/:id', updateUser);
 
 usersRoute.delete('/:id', deleteUser);
-
-usersRoute.get('/sesion/login', login);
 
 usersRoute.get('/sesion/dashboard', requireAuth, function(req, res){
     try{

@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 
 const requireAuth = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1];
-                  
-    //Verifica si el token existe y es valido.
+    const token = req.headers.authorization.split(' ')[1];                  
+    
+    //Verify if token exists and valid.
     if(token){
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) =>{
             if(err){
@@ -19,7 +19,6 @@ const requireAuth = (req, res, next) => {
                 next();
             }
         });
-
     }else{
         res.status(200)
             .json(

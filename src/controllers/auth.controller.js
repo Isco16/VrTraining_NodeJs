@@ -1,14 +1,11 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs/dist/bcrypt.js');
-// const sequelize = require('../db/connectionDb.js');
 const User = require('../models/users.model.js');
 
-// Similar a metodo "register".
+// Register user.
 const register = async (req, res) => {
     const { name, email, role, password_hash } = req.body;
     try {
-
-        //Validar nombre de usuario y contraseña.
         if(!name){
             console.log("Ingrese nombre");
             return res.status(400).json("Ingrese nombre");
@@ -30,16 +27,16 @@ const register = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         );
-        // res.status(201).json({newUser, token});
+
         res.status(201).json({newUser, token});
     } catch (error) {
         res.status(500).json({
             message: `An ERROR has occured when creating the user: ${error}`,
         })
-        // console.error(`An ERROR has occured when creating the user: ${error}`);
     }
 };
 
+//Login a user.
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
