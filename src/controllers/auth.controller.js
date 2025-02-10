@@ -53,7 +53,7 @@ const login = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: "1h"}
         );
-        res.json({ user, token});
+        res.status(200).json({ user, token});
     } catch (error) {
         console.log({ message: error.message });
         return res.status(500).json({

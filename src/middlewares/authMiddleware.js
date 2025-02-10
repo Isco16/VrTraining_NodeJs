@@ -8,7 +8,7 @@ const requireAuth = (req, res, next) => {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) =>{
             if(err){
                 console.log(err.message);
-                res.status(400)
+                res.status(401)
                     .json(
                         { 
                             success: false,
@@ -20,7 +20,7 @@ const requireAuth = (req, res, next) => {
             }
         });
     }else{
-        res.status(200)
+        res.status(400)
             .json(
                 {
                     success: false,
