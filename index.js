@@ -1,6 +1,7 @@
 require('dotenv').config();
 
-const app = require('./app.js');
+const { server } = require('./app.js');
+const socketIOSetup = require('./src/services/messaging.js');
 
 const sequelize = require('./src/db/connectionDb.js');
 require('./src/models/models.js');
@@ -12,8 +13,14 @@ const main = async () => {
 
     console.log("Conecction to data base successful.");
 
-    const port = process.env.DEFAULT_PORT || 3000;
-    app.listen(port, console.log(`Server running on port: ${port}`));
+    // Start the server
+    const PORT = process.env.PORT || 3000;
+    server.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+    socketIOSetup();
+
   } catch (error) {
     console.log("The server couldn't connect to data base.", error);
   }
